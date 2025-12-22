@@ -1,14 +1,16 @@
 package com.fldsmdfr.domainPatiens.adapters;
 
+import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.Collections;
 import java.util.List;
 
 import org.modelmapper.Converter;
 import org.modelmapper.ModelMapper;
 import org.modelmapper.spi.MappingContext;
+import org.springframework.data.domain.Page;
 import org.springframework.stereotype.Component;
 
+import com.fldsmdfr.common.dto.PageResponse;
 import com.fldsmdfr.domainPatiens.dto.PatientIdNameDto;
 import com.fldsmdfr.domainPatiens.dto.PatientRegister;
 import com.fldsmdfr.domainPatiens.dto.PatientResponse;
@@ -30,17 +32,8 @@ public class PatientMapper {
             @Override
             public String convert(MappingContext<List<String>, String> context) {
                 List<String> source = context.getSource();
-                if (source == null || source.isEmpty()) return null; // o ""
+                if (source == null || source.isEmpty()) return "";
                 return String.join(", ", source);
-            }
-        };
-
-        Converter<String, List<String>> stringToList = new Converter<>() {
-            @Override
-            public List<String> convert(MappingContext<String, List<String>> context) {
-                String source = context.getSource();
-                if (source == null || source.isBlank()) return Collections.emptyList();
-                return Arrays.asList(source.split(",\\s*"));
             }
         };
 
@@ -66,8 +59,18 @@ public class PatientMapper {
             
         modelMapper.typeMap(Patient.class, PatientResponse.class)
             .addMappings(mapper -> {
-                mapper.using(stringToList).map(Patient::getMedicalConditions, PatientResponse::setMedicalConditions);
-            });
+                mapper.skip(PatientResponse::setMedicalConditions);
+                mapper.map(Patient::getId, PatientResponse::setId);
+                mapper.map(Patient::getName, PatientResponse::setName);
+                mapper.map(Patient::getEmail, PatientResponse::setEmail);
+                mapper.map(Patient::getBirthDate, PatientResponse::setBirthDate);
+                mapper.map(Patient::getPhone, PatientResponse::setPhone);
+                mapper.map(Patient::getGender, PatientResponse::setGender);
+                mapper.map(Patient::getAddress, PatientResponse::setAddress);
+                mapper.map(Patient::getStatus, PatientResponse::setStatus);
+                mapper.map(Patient::getCreatedAt, PatientResponse::setCreatedAt);
+                mapper.map(Patient::getUpdatedAt, PatientResponse::setUpdatedAt);
+        });
     }
 
     public Patient toEntity(PatientRegister dto) {
@@ -80,6 +83,9 @@ public class PatientMapper {
 
     public PatientResponse toResponse(Patient patient) {
         PatientResponse response = modelMapper.map(patient, PatientResponse.class);
+        List<String> medicalConditions= Arrays.asList(patient.getMedicalConditions().split(",\\s*"));
+        ArrayList<String> medicalConditionsArrayList = new ArrayList<>(medicalConditions);
+        response.setMedicalConditions(medicalConditionsArrayList);
         return response;
     }
 
@@ -87,5 +93,16 @@ public class PatientMapper {
         return patients.stream()
                 .map(patient -> new PatientIdNameDto(patient.getId(), patient.getName()))
                 .toList();
+    }
+
+    public PageResponse<PatientResponse> toResponsePage(Page<Patient> page){
+        PageResponse<PatientResponse> patientPageResponse= new PageResponse<>();
+        patientPageResponse.setTotalElements(page.getTotalElements());
+        patientPageResponse.setTotalPages(page.getTotalPages());
+        patientPageResponse.setPageSize(page.getSize());
+        patientPageResponse.setPageNumber(page.getNumber());
+        patientPageResponse.setLast(page.isLast());
+        patientPageResponse.setContent(page.map(this::toResponse).getContent());
+        return patientPageResponse;
     }
 }

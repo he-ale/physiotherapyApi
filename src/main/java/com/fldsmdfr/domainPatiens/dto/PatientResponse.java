@@ -2,7 +2,6 @@ package com.fldsmdfr.domainPatiens.dto;
 
 import java.time.LocalDate;
 import java.util.ArrayList;
-import java.util.List;
 
 import com.fldsmdfr.domainPatiens.models.utilities.Gender;
 import com.fldsmdfr.domainPatiens.models.utilities.StatusPatient;

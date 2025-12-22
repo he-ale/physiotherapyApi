@@ -1,0 +1,20 @@
+{
+  "name": "Juan Claros",
+  "email": "email2@email.com",
+  "birthDate": "1993-12-11",
+  "phone": "+59179281134",
+  "gender": "MALE",
+  "address": "some avenue",
+  "medicalConditions": [
+    "pankirson", "diabetes"
+  ]
+}
+
+page
+{
+  "page": 0,
+  "size": 2,
+  "sort": [
+    "name,ASC"
+  ]
+}

@@ -39,7 +39,7 @@ public class PatientService {
     }
 
     public Patient create(Patient patient){
-        if(!existPatient(patient)){
+        if(existPatient(patient)){
             throw new PatientConflictException("Patient "+ patient.getName() + " already exists");
         }
         return patientRepository.save(patient);
@@ -55,6 +55,12 @@ public class PatientService {
         currentPatient.setAddress(patient.getAddress());
         currentPatient.setMedicalConditions(patient.getMedicalConditions());
         return patientRepository.save(currentPatient);
+    }
+
+    public void deletePatient(Long id){
+        Patient patient= findPatientById(id);
+        patient.setStatus(StatusPatient.REMOVED);
+        patientRepository.save(patient);
     }
 
     private Page<Patient> findAllPatientPage(Pageable pageable){
