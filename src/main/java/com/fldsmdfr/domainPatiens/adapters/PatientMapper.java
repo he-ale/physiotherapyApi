@@ -2,7 +2,6 @@ package com.fldsmdfr.domainPatiens.adapters;
 
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.Collections;
 import java.util.List;
 
 import org.modelmapper.Converter;
@@ -38,15 +37,6 @@ public class PatientMapper {
             }
         };
 
-        Converter<String, List<String>> stringToList = new Converter<>() {
-            @Override
-            public List<String> convert(MappingContext<String, List<String>> context) {
-                String source = context.getSource();
-                if (source == null || source.isBlank()) return Collections.emptyList();
-                return Arrays.asList(source.split(",\\s*"));
-            }
-        };
-
         modelMapper.typeMap(PatientRegister.class, Patient.class)
             .addMappings(mapper -> {
                 mapper.map(src->src.getGender()!=null ? Gender.valueOf(src.getGender()) : null, Patient::setGender);
@@ -69,18 +59,7 @@ public class PatientMapper {
             
         modelMapper.typeMap(Patient.class, PatientResponse.class)
             .addMappings(mapper -> {
-                // mapper.skip(PatientResponse::setId);
                 mapper.skip(PatientResponse::setMedicalConditions);
-                // mapper.skip(PatientResponse::setId);
-                // mapper.skip(PatientResponse::setName);
-                // mapper.skip(PatientResponse::setEmail);
-                // mapper.skip(PatientResponse::setBirthDate);
-                // mapper.skip(PatientResponse::setPhone);
-                // mapper.skip(PatientResponse::setGender);
-                // mapper.skip(PatientResponse::setAddress);
-                // mapper.skip(PatientResponse::setStatus);
-                // mapper.skip(PatientResponse::setCreatedAt);
-                // mapper.skip(PatientResponse::setUpdatedAt);
                 mapper.map(Patient::getId, PatientResponse::setId);
                 mapper.map(Patient::getName, PatientResponse::setName);
                 mapper.map(Patient::getEmail, PatientResponse::setEmail);
@@ -91,9 +70,7 @@ public class PatientMapper {
                 mapper.map(Patient::getStatus, PatientResponse::setStatus);
                 mapper.map(Patient::getCreatedAt, PatientResponse::setCreatedAt);
                 mapper.map(Patient::getUpdatedAt, PatientResponse::setUpdatedAt);
-
-                // mapper.using(stringToList).map(Patient::getMedicalConditions, PatientResponse::setMedicalConditions);
-            });
+        });
     }
 
     public Patient toEntity(PatientRegister dto) {
