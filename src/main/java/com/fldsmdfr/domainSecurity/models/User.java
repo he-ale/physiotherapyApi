@@ -1,6 +1,7 @@
 package com.fldsmdfr.domainSecurity.models;
 
-import java.time.LocalTime;
+import java.time.LocalDate;
+import java.time.LocalDateTime;
 
 import com.fldsmdfr.domainSecurity.models.utilities.UserStatus;
 
@@ -13,6 +14,8 @@ import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.Inheritance;
 import jakarta.persistence.InheritanceType;
+import jakarta.persistence.PrePersist;
+import jakarta.persistence.PreUpdate;
 import jakarta.persistence.Table;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -35,9 +38,22 @@ public class User {
     @Column(unique = true)
     private String email;
     private String password;
-    private LocalTime createdAt;
-    private LocalTime updatedAt;
+    private LocalDate createdAt;
+    private LocalDate updatedAt;
+    private LocalDateTime sortDate;
     @Enumerated(EnumType.STRING)
     private UserStatus userStatus;
     private String phone;
+
+    @PrePersist
+    public void prePersist(){
+        createdAt= LocalDate.now();
+        sortDate= LocalDateTime.now();
+    }
+
+    @PreUpdate
+    public void preUpdate(){
+        updatedAt= LocalDate.now();
+        sortDate= LocalDateTime.now();
+    }
 }

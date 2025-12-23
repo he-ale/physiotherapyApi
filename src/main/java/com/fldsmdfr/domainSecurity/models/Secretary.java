@@ -1,5 +1,7 @@
 package com.fldsmdfr.domainSecurity.models;
 
+import com.fldsmdfr.domainSecurity.models.utilities.Shift;
+
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
@@ -20,4 +22,6 @@ public class Secretary extends User {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
+
+    private Shift shift;
 }
