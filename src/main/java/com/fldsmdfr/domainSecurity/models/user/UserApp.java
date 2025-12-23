@@ -1,19 +1,25 @@
-package com.fldsmdfr.domainSecurity.models;
+package com.fldsmdfr.domainSecurity.models.user;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.util.Set;
 
+import com.fldsmdfr.domainSecurity.models.role.Role;
 import com.fldsmdfr.domainSecurity.models.utilities.UserStatus;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.EnumType;
 import jakarta.persistence.Enumerated;
+import jakarta.persistence.FetchType;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.Inheritance;
 import jakarta.persistence.InheritanceType;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.JoinTable;
+import jakarta.persistence.ManyToMany;
 import jakarta.persistence.PrePersist;
 import jakarta.persistence.PreUpdate;
 import jakarta.persistence.Table;
@@ -29,21 +35,37 @@ import lombok.Setter;
 @Entity
 @Table(name = "user_app")
 @Inheritance(strategy = InheritanceType.JOINED)
-public class User {
+public class UserApp {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
     private String name;
+    
     @Column(unique = true)
     private String email;
+    
     private String password;
+    
     private LocalDate createdAt;
+    
     private LocalDate updatedAt;
+    
     private LocalDateTime sortDate;
+    
     @Enumerated(EnumType.STRING)
     private UserStatus userStatus;
+
+    @Column(unique = true)
     private String phone;
+
+    @ManyToMany(fetch = FetchType.EAGER)
+    @JoinTable(
+        name = "user_app_role",
+        joinColumns = @JoinColumn(name= "user_app_id"),
+        inverseJoinColumns = @JoinColumn(name= "role_id")
+    )
+    private Set<Role> roles;
 
     @PrePersist
     public void prePersist(){

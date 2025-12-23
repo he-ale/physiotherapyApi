@@ -1,10 +1,13 @@
-package com.fldsmdfr.domainSecurity.models;
+package com.fldsmdfr.domainSecurity.models.secretary;
+
+import com.fldsmdfr.domainSecurity.models.user.UserApp;
 
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -13,13 +16,12 @@ import lombok.Setter;
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
+@Builder
 @Entity
-public class Doctor extends User{
+public class Secretary extends UserApp {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-    private String specialty;
-    private String licenseNumber;
-    private Integer experience;
-    private String description;
+
+    private Shift shift;
 }
