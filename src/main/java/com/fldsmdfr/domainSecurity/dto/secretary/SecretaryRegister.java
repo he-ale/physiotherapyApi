@@ -13,8 +13,8 @@ import lombok.Setter;
 public class SecretaryRegister extends UserAppRegister {
     private Shift shift;
 
-    public SecretaryRegister(String name, String email, Shift shift) {
-        super(name, email);
+    public SecretaryRegister(String name, String email, Shift shift, String password, String phone) {
+        super(name, email,password, phone );
         this.shift= shift;
     }
 

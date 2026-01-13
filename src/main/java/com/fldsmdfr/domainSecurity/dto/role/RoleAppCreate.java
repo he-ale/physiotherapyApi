@@ -1,7 +1,5 @@
-package com.fldsmdfr.domainSecurity.dto.user;
+package com.fldsmdfr.domainSecurity.dto.role;
 
-import jakarta.validation.constraints.Email;
-import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Pattern;
 import jakarta.validation.constraints.Size;
 import lombok.AllArgsConstructor;
@@ -13,23 +11,11 @@ import lombok.Setter;
 @NoArgsConstructor
 @Getter
 @Setter
-public class UserAppRegister {
-
-    @NotNull
+public class RoleAppCreate {
+    @Size(min = 3, max = 20)
     @Pattern(
         regexp = "^[A-Za-zÁÉÍÓÚáéíóúÑñ -]+$",
         message = "Only Letters and spaces are allowed"
     )
-    @Size(min = 8, max = 60)
     private String name;
-    
-    @NotNull
-    @Email
-    private String email;
-
-    @NotNull
-    private String password;
-
-    @NotNull
-    private String phone;
 }

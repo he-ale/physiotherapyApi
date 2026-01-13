@@ -26,8 +26,8 @@ public class DoctorRegister extends UserAppRegister {
     private String description;
 
     public DoctorRegister(String name, String email, String specialty, String licenseNumber, Integer experience,
-            String description) {
-        super(name, email);
+            String description, String password, String phone) {
+        super(name, email, password, phone);
         this.specialty = specialty;
         this.licenseNumber = licenseNumber;
         this.experience = experience;

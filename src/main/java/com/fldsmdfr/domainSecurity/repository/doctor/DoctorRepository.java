@@ -5,4 +5,5 @@ import com.fldsmdfr.domainSecurity.models.doctor.Doctor;
 
 public interface DoctorRepository extends GenericRepository<Doctor, Long>{
 
+    boolean existsByLicenseNumberAndIdNot(String licenseNumber, Long id);
 }

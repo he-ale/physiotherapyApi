@@ -19,9 +19,6 @@ import lombok.Setter;
 @Builder
 @Entity
 public class Secretary extends UserApp {
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
-
+    
     private Shift shift;
 }

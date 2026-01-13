@@ -14,15 +14,14 @@ import lombok.Setter;
 @Getter
 @Setter
 public class SecertaryResponse extends UserAppResponse {
-    private Long secretaryId;
+
     private Shift shift;
 
     public SecertaryResponse(Long id, String name, String email, LocalDate createdAt, 
-                             LocalDate updatedAt, UserStatus userStatus,Long secretaryId, Shift shift){
+                             LocalDate updatedAt, UserStatus userStatus, Shift shift){
         
         super(id, name, email, createdAt, updatedAt, userStatus);
         
-        this.secretaryId= secretaryId;
         this.shift= shift;
     }
 }

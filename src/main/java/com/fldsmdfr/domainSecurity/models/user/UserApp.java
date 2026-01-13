@@ -4,7 +4,7 @@ import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.Set;
 
-import com.fldsmdfr.domainSecurity.models.role.Role;
+import com.fldsmdfr.domainSecurity.models.role.RoleApp;
 import com.fldsmdfr.domainSecurity.models.utilities.UserStatus;
 
 import jakarta.persistence.Column;
@@ -65,7 +65,7 @@ public class UserApp {
         joinColumns = @JoinColumn(name= "user_app_id"),
         inverseJoinColumns = @JoinColumn(name= "role_id")
     )
-    private Set<Role> roles;
+    private Set<RoleApp> roles;
 
     @PrePersist
     public void prePersist(){

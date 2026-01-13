@@ -19,10 +19,6 @@ import lombok.Setter;
 @Entity
 public class Doctor extends UserApp{
 
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
-
     private String specialty;
 
     @Column(unique = true)

@@ -13,8 +13,6 @@ import lombok.Setter;
 @Getter
 @Setter
 public class DoctorResponse extends UserAppResponse {
-    
-    private Long doctorId;
 
     private String specialty;
 
@@ -25,10 +23,9 @@ public class DoctorResponse extends UserAppResponse {
     private String description;
 
     public DoctorResponse(Long id, String name, String email, LocalDate createdAt, LocalDate updatedAt,
-            UserStatus userStatus, Long id2, String specialty, String licenseNumber, Integer experience,
+            UserStatus userStatus, String specialty, String licenseNumber, Integer experience,
             String description) {
         super(id, name, email, createdAt, updatedAt, userStatus);
-        doctorId = id2;
         this.specialty = specialty;
         this.licenseNumber = licenseNumber;
         this.experience = experience;
