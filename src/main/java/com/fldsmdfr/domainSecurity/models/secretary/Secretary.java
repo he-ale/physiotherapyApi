@@ -1,6 +1,6 @@
 package com.fldsmdfr.domainSecurity.models.secretary;
 
-import com.fldsmdfr.domainSecurity.models.user.UserApp;
+import com.fldsmdfr.domainSecurity.models.user.AppUser;
 
 import jakarta.persistence.Entity;
 import lombok.AllArgsConstructor;
@@ -15,7 +15,7 @@ import lombok.Setter;
 @AllArgsConstructor
 @Builder
 @Entity
-public class Secretary extends UserApp {
+public class Secretary extends AppUser {
 
     private Shift shift;
 }

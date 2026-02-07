@@ -4,7 +4,7 @@ import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.Set;
 
-import com.fldsmdfr.domainSecurity.models.role.RoleApp;
+import com.fldsmdfr.domainSecurity.models.role.AppRole;
 import com.fldsmdfr.domainSecurity.models.utilities.UserStatus;
 
 import jakarta.persistence.Column;
@@ -33,9 +33,9 @@ import lombok.Setter;
 @NoArgsConstructor
 @AllArgsConstructor
 @Entity
-@Table(name = "user_app")
+@Table(name = "app_user")
 @Inheritance(strategy = InheritanceType.JOINED)
-public class UserApp {
+public class AppUser {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
@@ -61,11 +61,11 @@ public class UserApp {
 
     @ManyToMany(fetch = FetchType.EAGER)
     @JoinTable(
-        name = "user_app_role",
-        joinColumns = @JoinColumn(name= "user_app_id"),
+        name = "app_user_role",
+        joinColumns = @JoinColumn(name= "app_user_id"),
         inverseJoinColumns = @JoinColumn(name= "role_id")
     )
-    private Set<RoleApp> roles;
+    private Set<AppRole> roles;
 
     @PrePersist
     public void prePersist(){

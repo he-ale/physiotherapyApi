@@ -1,6 +1,6 @@
 package com.fldsmdfr.domainSecurity.models.doctor;
 
-import com.fldsmdfr.domainSecurity.models.user.UserApp;
+import com.fldsmdfr.domainSecurity.models.user.AppUser;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
@@ -14,7 +14,7 @@ import lombok.Setter;
 @NoArgsConstructor
 @AllArgsConstructor
 @Entity
-public class Doctor extends UserApp{
+public class Doctor extends AppUser{
 
     private String specialty;
 

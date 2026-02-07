@@ -9,7 +9,7 @@ import lombok.Setter;
 @NoArgsConstructor
 @Getter
 @Setter
-public class RoleAppResponse {
+public class AppRoleResponse {
 
     private Long id;
 

@@ -1,10 +1,10 @@
 package com.fldsmdfr.domainSecurity.repository.user;
 
 import com.fldsmdfr.common.repository.GenericRepository;
-import com.fldsmdfr.domainSecurity.models.user.UserApp;
+import com.fldsmdfr.domainSecurity.models.user.AppUser;
 
 
-public interface UserAppRepository extends GenericRepository<UserApp, Long> {
+public interface UserAppRepository extends GenericRepository<AppUser, Long> {
     
     boolean existsByEmail(String email);
 
@@ -12,5 +12,5 @@ public interface UserAppRepository extends GenericRepository<UserApp, Long> {
 
     boolean existsByEmailIgnoreCaseAndIdNot(String email, Long id);
 
-    boolean exexistsByPhoneAndIdNot(String phone, Long id);
+    boolean existsByPhoneAndIdNot(String phone, Long id);
 }

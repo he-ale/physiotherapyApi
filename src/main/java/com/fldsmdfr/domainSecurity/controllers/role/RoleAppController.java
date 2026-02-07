@@ -3,12 +3,12 @@ package com.fldsmdfr.domainSecurity.controllers.role;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.fldsmdfr.domainSecurity.adapters.role.RoleAppMapper;
-import com.fldsmdfr.domainSecurity.dto.role.RoleAppCreate;
-import com.fldsmdfr.domainSecurity.dto.role.RoleAppResponse;
-import com.fldsmdfr.domainSecurity.dto.role.RoleAppUpdate;
-import com.fldsmdfr.domainSecurity.models.role.RoleApp;
-import com.fldsmdfr.domainSecurity.services.role.RoleAppService;
+import com.fldsmdfr.domainSecurity.adapters.role.AppRoleAdapter;
+import com.fldsmdfr.domainSecurity.dto.role.AppRoleCreate;
+import com.fldsmdfr.domainSecurity.dto.role.AppRoleResponse;
+import com.fldsmdfr.domainSecurity.dto.role.AppRoleUpdate;
+import com.fldsmdfr.domainSecurity.models.role.AppRole;
+import com.fldsmdfr.domainSecurity.services.role.AppRoleService;
 
 import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.AllArgsConstructor;
@@ -26,48 +26,48 @@ import org.springframework.web.bind.annotation.GetMapping;
 
 
 @RestController
-@RequestMapping(path = "/api/roleApp")
-@Tag(name = "RoleApp")
+@RequestMapping(path = "/api/v1/appRole")
+@Tag(name = "AppRole")
 @AllArgsConstructor
 public class RoleAppController {
     
-    private final RoleAppService roleAppService;
+    private final AppRoleService appRoleService;
 
-    private final RoleAppMapper roleAppMapper;
+    private final AppRoleAdapter appRoleAdapter;
 
-    @PostMapping("/create")
-    public ResponseEntity<RoleAppResponse> createRoleApp(@RequestBody RoleAppCreate body) {
-        RoleApp roleApp= roleAppMapper.roleAppCreateToRoleApp(body);
-        RoleApp newRoleApp= roleAppService.createRole(roleApp);
-        RoleAppResponse response= roleAppMapper.roleAppToRoleAppResponse(newRoleApp);
-        URI created = URI.create("/api/roleApp/" + response.getId());
+    @PostMapping("/createAppRole")
+    public ResponseEntity<AppRoleResponse> createAppRole(@RequestBody AppRoleCreate body) {
+        AppRole appRole= appRoleAdapter.appRoleCreateToAppRole(body);
+        appRole= appRoleService.createRole(appRole);
+        AppRoleResponse response= appRoleAdapter.appRoleToRoleAppResponse(appRole);
+        URI created = URI.create("/api/v1/appRole/" + response.getId());
         return ResponseEntity.created(created).body(response);
     }
     
-    @PutMapping("/update/{name}")
-    public ResponseEntity<RoleAppResponse> updateRoleApp(@PathVariable String name, @RequestBody RoleAppUpdate entity) {
-        RoleApp roleAppToUpdate= roleAppMapper.roleAppUpdateToRoleApp(entity);
-        RoleApp roleAppUpdated= roleAppService.updateRole(name.toUpperCase(), roleAppToUpdate);
-        RoleAppResponse response= roleAppMapper.roleAppToRoleAppResponse(roleAppUpdated);
+    @PutMapping("/updateAppRole/{name}")
+    public ResponseEntity<AppRoleResponse> updateAppRole(@PathVariable String name, @RequestBody AppRoleUpdate entity) {
+        AppRole appRoleToUpdate= appRoleAdapter.appRoleUpdateToAppRole(entity);
+        AppRole roleAppUpdated= appRoleService.updateAppRole(name.toUpperCase(), appRoleToUpdate);
+        AppRoleResponse response= appRoleAdapter.appRoleToRoleAppResponse(roleAppUpdated);
         return ResponseEntity.ok().body(response);
     }
 
-    @GetMapping("/")
-    public ResponseEntity<List<RoleAppResponse>> getMethodName() {
-        List<RoleAppResponse> reponse= roleAppService.findAllRoleApp().stream().map(r->roleAppMapper.roleAppToRoleAppResponse(r)).toList();
+    @GetMapping("/appRoles")
+    public ResponseEntity<List<AppRoleResponse>> appRoles() {
+        List<AppRoleResponse> reponse= appRoleAdapter.appRolesToAppRolesResponse(appRoleService.findAll());
         return ResponseEntity.ok().body(reponse);
     }
 
-    @GetMapping("/{name}")
-    public ResponseEntity<RoleAppResponse> getRoleAppByName(@PathVariable String name) {
-        RoleApp roleApp= roleAppService.findRoleApp(name.toUpperCase());
-        RoleAppResponse response= roleAppMapper.roleAppToRoleAppResponse(roleApp);
+    @GetMapping("/appRoleByName/{name}")
+    public ResponseEntity<AppRoleResponse> getAppRoleByName(@PathVariable String name) {
+        AppRole roleApp= appRoleService.findRoleByName(name.toUpperCase());
+        AppRoleResponse response= appRoleAdapter.appRoleToRoleAppResponse(roleApp);
         return ResponseEntity.ok().body(response);
     }
     
-    @DeleteMapping("/{id}")
-    public ResponseEntity<Void> deleteRole(@PathVariable Long id){
-        roleAppService.removeRoleApp(id);
+    @DeleteMapping("/deleteAppRole/{id}")
+    public ResponseEntity<Void> deleteAppRole(@PathVariable Long id){
+        appRoleService.removeAppRole(id);
         return ResponseEntity.noContent().build();
     }
 }

@@ -2,7 +2,7 @@ package com.fldsmdfr.domainSecurity.models.role;
 
 import java.util.Set;
 
-import com.fldsmdfr.domainSecurity.models.user.UserApp;
+import com.fldsmdfr.domainSecurity.models.user.AppUser;
 
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
@@ -26,7 +26,7 @@ import lombok.Setter;
 @Setter
 @Entity
 @Table(name = "role")
-public class RoleApp {
+public class AppRole {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -36,7 +36,7 @@ public class RoleApp {
     private String name;
 
     @ManyToMany(mappedBy = "roles", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
-    private Set<UserApp> users;
+    private Set<AppUser> users;
 
     @PrePersist
     private void prePersist(){

@@ -11,7 +11,7 @@ import lombok.Setter;
 @NoArgsConstructor
 @Getter
 @Setter
-public class RoleAppUpdate {
+public class AppRoleCreate {
     @Size(min = 3, max = 20)
     @Pattern(
         regexp = "^[A-Za-zÁÉÍÓÚáéíóúÑñ -]+$",
