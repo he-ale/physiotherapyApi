@@ -1,6 +1,8 @@
 package com.fldsmdfr.domainPatiens.exceptions;
 
-public class PatientConflictException extends RuntimeException{
+import com.fldsmdfr.common.exceptions.ConflictException;
+
+public class PatientConflictException extends ConflictException{
 
     public PatientConflictException(String message){
         super(message);

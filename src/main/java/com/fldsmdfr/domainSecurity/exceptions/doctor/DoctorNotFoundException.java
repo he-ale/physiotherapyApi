@@ -1,6 +1,8 @@
 package com.fldsmdfr.domainSecurity.exceptions.doctor;
 
-public class DoctorNotFoundException extends RuntimeException{
+import com.fldsmdfr.common.exceptions.NotFoundException;
+
+public class DoctorNotFoundException extends NotFoundException{
 
     public DoctorNotFoundException(String message){
         super(message);

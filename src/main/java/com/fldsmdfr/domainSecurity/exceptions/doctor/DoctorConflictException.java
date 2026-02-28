@@ -1,6 +1,8 @@
 package com.fldsmdfr.domainSecurity.exceptions.doctor;
 
-public class DoctorConflictException extends RuntimeException {
+import com.fldsmdfr.common.exceptions.ConflictException;
+
+public class DoctorConflictException extends ConflictException {
 
     public DoctorConflictException(String message){
         super(message);

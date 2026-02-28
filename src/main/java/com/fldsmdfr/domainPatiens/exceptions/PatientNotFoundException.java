@@ -1,6 +1,8 @@
 package com.fldsmdfr.domainPatiens.exceptions;
 
-public class PatientNotFoundException extends RuntimeException{
+import com.fldsmdfr.common.exceptions.NotFoundException;
+
+public class PatientNotFoundException extends NotFoundException{
 
     public PatientNotFoundException(String message){
         super(message);

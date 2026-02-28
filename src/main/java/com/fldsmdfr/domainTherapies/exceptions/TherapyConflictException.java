@@ -1,6 +1,8 @@
 package com.fldsmdfr.domainTherapies.exceptions;
 
-public class TherapyConflictException extends RuntimeException {
+import com.fldsmdfr.common.exceptions.ConflictException;
+
+public class TherapyConflictException extends ConflictException {
     public TherapyConflictException(String message){
         super(message);
     }
