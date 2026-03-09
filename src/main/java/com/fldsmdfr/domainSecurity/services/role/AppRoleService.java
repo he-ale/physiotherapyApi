@@ -42,7 +42,7 @@ public class AppRoleService {
     }
 
     public AppRole findRoleByName(String name){
-        return repository.findByName(name).orElseThrow(()->new AppRoleNotFoundException("Role: "+ name+ " not found"));
+        return repository.findByNameIgnoringCase(name).orElseThrow(()->new AppRoleNotFoundException("Role: "+ name+ " not found"));
     }
 
     @Transactional
@@ -55,6 +55,6 @@ public class AppRoleService {
     }
 
     private boolean nameExist(String name){
-        return repository.findByName(name).isPresent();
+        return repository.findByNameIgnoringCase(name).isPresent();
     }
 }

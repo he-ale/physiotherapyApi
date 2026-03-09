@@ -1,6 +1,8 @@
 package com.fldsmdfr.domainSecurity.exceptions.secretary;
 
-public class SecretaryNotFoundException extends RuntimeException {
+import com.fldsmdfr.common.exceptions.NotFoundException;
+
+public class SecretaryNotFoundException extends NotFoundException {
 
     public SecretaryNotFoundException(String message){
         super(message);

@@ -13,18 +13,6 @@ import org.springframework.web.servlet.mvc.method.annotation.ResponseEntityExcep
 @RestControllerAdvice
 public class ExceptionResponseHandler extends ResponseEntityExceptionHandler {
     
-    @ExceptionHandler(Exception.class)
-    public ResponseEntity<HashMap<String, Object>> handleAllExceptions(Exception ex, WebRequest request) {
-        HashMap<String, Object> body = new HashMap<>();
-        body.put("timestamp", LocalDateTime.now());
-        body.put("status", HttpStatus.INTERNAL_SERVER_ERROR.value());
-        body.put("error", "Internal Server Error");
-        body.put("message", ex.getMessage());
-        body.put("path", request.getDescription(false).replace("uri=", ""));
-
-        return new ResponseEntity<>(body, HttpStatus.INTERNAL_SERVER_ERROR);
-    }
-
     @ExceptionHandler(NotFoundException.class)
     public ResponseEntity<HashMap<String, Object>> handleNotFoundException(NotFoundException ex, WebRequest request) {
         HashMap<String, Object> body = new HashMap<>();
@@ -47,5 +35,17 @@ public class ExceptionResponseHandler extends ResponseEntityExceptionHandler {
         body.put("path", request.getDescription(false).replace("uri=", ""));
 
         return new ResponseEntity<>(body, HttpStatus.CONFLICT);
+    }
+
+    @ExceptionHandler(Exception.class)
+    public ResponseEntity<HashMap<String, Object>> handleAllExceptions(Exception ex, WebRequest request) {
+        HashMap<String, Object> body = new HashMap<>();
+        body.put("timestamp", LocalDateTime.now());
+        body.put("status", HttpStatus.INTERNAL_SERVER_ERROR.value());
+        body.put("error", "Internal Server Error");
+        body.put("message", ex.getMessage());
+        body.put("path", request.getDescription(false).replace("uri=", ""));
+
+        return new ResponseEntity<>(body, HttpStatus.INTERNAL_SERVER_ERROR);
     }
 }

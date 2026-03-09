@@ -1,6 +1,8 @@
 package com.fldsmdfr.domainSecurity.exceptions.secretary;
 
-public class SecretaryConflictException extends RuntimeException {
+import com.fldsmdfr.common.exceptions.ConflictException;
+
+public class SecretaryConflictException extends ConflictException {
 
     public SecretaryConflictException(String message){
         super(message);

@@ -7,5 +7,5 @@ import java.util.Optional;
 
 public interface AppRoleRepository extends GenericRepository<AppRole, Long> {
 
-    Optional<AppRole> findByName(String name);    
+    Optional<AppRole> findByNameIgnoringCase(String name);    
 }

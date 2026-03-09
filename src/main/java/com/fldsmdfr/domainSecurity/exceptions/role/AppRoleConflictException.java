@@ -1,6 +1,8 @@
 package com.fldsmdfr.domainSecurity.exceptions.role;
 
-public class AppRoleConflictException extends RuntimeException{
+import com.fldsmdfr.common.exceptions.ConflictException;
+
+public class AppRoleConflictException extends ConflictException{
     public AppRoleConflictException(String msg){
         super(msg);
     }
